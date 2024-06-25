@@ -14,7 +14,7 @@ SDL_Window *init_window() {
         SDL_WINDOWPOS_UNDEFINED, 
         SDL_WINDOWPOS_UNDEFINED, 
         640, 480, 
-        SDL_WINDOW_SHOWN
+        SDL_WINDOW_FULLSCREEN_DESKTOP
     );
     
     if (window == NULL) {

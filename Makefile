@@ -1,6 +1,6 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -g -I/opt/homebrew/Cellar/sdl2/2.30.3/include
-LIBS = -L/opt/homebrew/Cellar/sdl2/2.30.3/lib -lSDL2
+CFLAGS = -g -I/opt/homebrew/Cellar/sdl2_image/2.8.2_1/include -I/opt/homebrew/Cellar/sdl2/2.30.3/include
+LIBS = -L/opt/homebrew/Cellar/sdl2_image/2.8.2_1/lib -L/opt/homebrew/Cellar/sdl2/2.30.3/lib -lSDL2_image  -lSDL2
 
 build: src/main.o src/engine/window.o
 	$(CC) $(CFLAGS) $^ -o tinogea $(LIBS)
