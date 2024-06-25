@@ -60,11 +60,10 @@ int main()
 
     SDL_Rect srcRect; // Source rectangle
     
-
     // Rectangle to define where to render the texture on the screen
     SDL_Rect destRect; // Destination rectangle
 
-    unsigned int frame = 0;    unsigned int state = 0;
+    unsigned int state = 0;
 
 
     Instance *obj1 = obj1_create(0, 0);
@@ -87,8 +86,8 @@ int main()
             SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
             SDL_RenderFillRect(renderer, &fillRect);
 
-            srcRect.x = frame*obj1->sprite_data->sprite_width;    // X coordinate of the top left corner
-            srcRect.y = state*obj1->sprite_data->sprite_height;    // Y coordinate of the top left corner
+            srcRect.x = obj1->frame*obj1->sprite_data->sprite_width;    // X coordinate of the top left corner
+            srcRect.y = obj1->state*obj1->sprite_data->sprite_height;    // Y coordinate of the top left corner
             srcRect.w = obj1->sprite_data->sprite_width;  // Width of the rectangle
             srcRect.h = obj1->sprite_data->sprite_height;  // Height of the rectangle
 
@@ -98,9 +97,9 @@ int main()
             destRect.h = srcRect.h*obj1->scale++;
             if (obj1->scale > 50) {
                 obj1->scale %= 50;
-                frame = (++frame)%obj1->sprite_data->max_frames[state];
-                if (!frame)
-                    state = (++state)%obj1->sprite_data->max_state;
+                obj1->frame = (++obj1->frame)%obj1->sprite_data->max_frames[obj1->state];
+                if (!obj1->frame)
+                    obj1->state = (++obj1->state)%obj1->sprite_data->max_state;
             }
 
             SDL_RenderCopy(renderer, texture, &srcRect, &destRect);

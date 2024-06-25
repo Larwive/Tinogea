@@ -8,6 +8,7 @@ typedef struct {
     int y;
     int scale;
     unsigned int frame;
+    unsigned int state;
     SpriteData *sprite_data;
 } Instance;
 

@@ -21,6 +21,7 @@ SpriteData *obj1_SpriteData() {
 Instance *obj1_create(int x, int y) {
     Instance *obj1 = malloc(sizeof(Instance));
     obj1->frame = 0;
+    obj1->state = 0;
     obj1->scale = 1;
     obj1->sprite_data = obj1_SpriteData();
     obj1->x = x;
