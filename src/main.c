@@ -11,7 +11,7 @@ extern SDL_Window *window;
 
 SDL_Renderer *renderer = NULL;
 
-void on_exit()
+void clean_exit()
 {
     SDL_DestroyWindow(window);
     SDL_Quit();
@@ -20,7 +20,7 @@ void on_exit()
 
 int main()
 {
-    signal(SIGINT, on_exit);
+    signal(SIGINT, clean_exit);
     init_window();
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0);;
 
@@ -32,7 +32,7 @@ int main()
         {
             if (e.type == SDL_QUIT)
             {
-                on_exit();
+                clean_exit();
             }
 
             SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
