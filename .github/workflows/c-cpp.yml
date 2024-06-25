@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - run: sudo apt-get update && sudo apt-get install libsdl2-dev
+    - run: sudo apt-get update && sudo apt-get install libsdl2-dev libsdl2-image-dev
     - name: make
       run: make
     - name: make check
