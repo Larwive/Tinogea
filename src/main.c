@@ -7,8 +7,7 @@
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480
 
-extern SDL_Window *window;
-
+SDL_Window *window;
 SDL_Renderer *renderer = NULL;
 
 void clean_exit()

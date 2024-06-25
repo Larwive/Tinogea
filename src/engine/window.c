@@ -1,5 +1,7 @@
 #include "window.h"
 
+extern SDL_Window *window;
+extern SDL_Renderer *renderer;
 
 SDL_Window *init_window() {
     printf("Initializing window...\n");
