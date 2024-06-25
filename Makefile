@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -g -I/opt/homebrew/Cellar/sdl2_image/2.8.2_1/include -I/opt/homebrew/Cellar/sdl2/2.30.3/include
 LIBS = -L/opt/homebrew/Cellar/sdl2_image/2.8.2_1/lib -L/opt/homebrew/Cellar/sdl2/2.30.3/lib -lSDL2_image  -lSDL2
 
-build: src/main.o src/engine/window.o
+build: src/main.o src/engine/window.o assets/obj/obj.o
 	$(CC) $(CFLAGS) $^ -o tinogea $(LIBS)
 
 check: tst/test.c

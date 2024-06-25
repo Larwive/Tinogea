@@ -4,6 +4,7 @@
 #include <SDL2/SDL_image.h>
 #include "tag.h"
 #include "engine/window.h"
+#include "../assets/obj/obj.h"
 
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480
@@ -39,7 +40,7 @@ int main()
 
     SDL_Event e;
 
-    SDL_Surface* imageSurface = IMG_Load("assets/misc/obj1/pixil-frame-0.png");
+    SDL_Surface* imageSurface = IMG_Load("assets/obj/obj1/pixil-frame-0.png");
     if (imageSurface == NULL) {
         fprintf(stderr, "IMG_Load error: %s\n", IMG_GetError());
         SDL_DestroyRenderer(renderer);
@@ -62,15 +63,11 @@ int main()
 
     // Rectangle to define where to render the texture on the screen
     SDL_Rect destRect; // Destination rectangle
-    unsigned int scale = 1;
-    unsigned int frame = 0;
-    unsigned int state = 0;
-    unsigned int sprite_width = 10;
-    unsigned int sprite_height = 10;
-    unsigned int max_frame[] = {4, 2};
-    unsigned int max_state = 2;
-    unsigned int x = 0;
-    unsigned int y = 0;
+
+    unsigned int frame = 0;    unsigned int state = 0;
+
+
+    Instance *obj1 = obj1_create(0, 0);
 
 
     while (1)
@@ -90,27 +87,27 @@ int main()
             SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
             SDL_RenderFillRect(renderer, &fillRect);
 
-            srcRect.x = frame*sprite_width;    // X coordinate of the top left corner
-            srcRect.y = state*sprite_height;    // Y coordinate of the top left corner
-            srcRect.w = sprite_width;  // Width of the rectangle
-            srcRect.h = sprite_height;  // Height of the rectangle
+            srcRect.x = frame*obj1->sprite_data->sprite_width;    // X coordinate of the top left corner
+            srcRect.y = state*obj1->sprite_data->sprite_height;    // Y coordinate of the top left corner
+            srcRect.w = obj1->sprite_data->sprite_width;  // Width of the rectangle
+            srcRect.h = obj1->sprite_data->sprite_height;  // Height of the rectangle
 
-            destRect.x = x; // Center horizontally
-            destRect.y = y; // Center vertically
-            destRect.w = srcRect.w*scale;
-            destRect.h = srcRect.h*scale++;
-            if (scale > 50) {
-                scale %= 50;
-                frame = (++frame)%max_frame[state];
+            destRect.x = obj1->x; // Center horizontally
+            destRect.y = obj1->y; // Center vertically
+            destRect.w = srcRect.w*obj1->scale;
+            destRect.h = srcRect.h*obj1->scale++;
+            if (obj1->scale > 50) {
+                obj1->scale %= 50;
+                frame = (++frame)%obj1->sprite_data->max_frames[state];
                 if (!frame)
-                    state = (++state)%max_state;
+                    state = (++state)%obj1->sprite_data->max_state;
             }
 
             SDL_RenderCopy(renderer, texture, &srcRect, &destRect);
 
             SDL_RenderPresent(renderer);
-            x = (++x)%screen_width;
-            y = (++y)%screen_height;
+            obj1->x = (++obj1->x)%screen_width;
+            obj1->y = (++obj1->y)%screen_height;
         }
     }
     return 0;
